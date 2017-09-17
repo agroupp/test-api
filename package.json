@@ -4,6 +4,7 @@
   "description": "API for testing http requests",
   "main": "index.js",
   "scripts": {
+    "dev": "set port=3030 && set dev=true && node start.js",
     "test": "mocha --reporter spec"
   },
   "repository": {
