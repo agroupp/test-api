@@ -22,12 +22,11 @@ module.exports = (request, response) => {
 
     /** 
      * Check if there is query params
-     * and if they are add queryParams object
+     * and if they are add queryParams map
      * to responseObject
      */
     if (query && Object.keys(query).length > 0){
         for(let k in query){
-            // queryParams[k] = query[k];
             queryParams.set(k, query[k]);
         }
         responseObject.queryParams = Array.from(queryParams);
@@ -35,7 +34,7 @@ module.exports = (request, response) => {
 
     /**
      * Check if there is a body in request
-     * 
+     * and add it to response object
      */
     if (body && Object.keys(body).length > 0) {
         responseObject.body = body;
@@ -46,7 +45,7 @@ module.exports = (request, response) => {
 
     /** Set response headers */
     response.set({
-        'Allow': 'GET',
+        'Allow': 'GET, POST',
         'Server': 'Test API'
     });
 
