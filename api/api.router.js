@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const echoRoutes = require('./echo/echo.router');
 
 router.get('/', (req, res) => {
     res.set({
@@ -17,6 +18,8 @@ router.get('/', (req, res) => {
         requestHostname: req.hostname,
         requestIp: req.ip
     })
-})    
+});
+
+router.use('/echo', echoRoutes);
 
 module.exports = router;
