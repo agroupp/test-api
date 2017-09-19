@@ -3,7 +3,7 @@
 const app = require('./app');
 
 const isInDev = (process.env.dev) ? true : false;
-const applicationPort = process.env.port || 3000;
+const applicationPort = process.env.port || 30011;
 
 //console.log(applicationPort, isInDev);
 
