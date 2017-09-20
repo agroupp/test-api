@@ -1,4 +1,6 @@
 'use strict';
+const requestsCounter = require('../../request-counter');
+
 /**
  * @module EchoController
  */
@@ -16,6 +18,8 @@ module.exports = (request, response) => {
      */
     let responseObject = {};
     
+    requestsCounter.next();
+
     /** Request method */
     responseObject.method = request.method;
     
@@ -51,7 +55,8 @@ module.exports = (request, response) => {
 
     /** Set response headers */
     response.set({
-        'Allow': 'GET,POST,PUT,DELETE,PATCH'
+        'Allow': 'GET,POST,PUT,DELETE,PATCH',
+        'X-Request-No': requestsCounter.counter()
     });
 
     /** Response */
