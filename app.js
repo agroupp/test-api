@@ -27,4 +27,13 @@ const api = require('./api/api.router');
 app.use('/', express.static('public'));
 app.use('/api', api);
 
+/**
+ * Error Handler
+ */
+app.use((req, res, next) => {
+    res.status(404).json({ status: 404, statusText: 'Route not found'});
+});
+app.use((err, req, res, next) => {
+    res.status(500).json({ status: 500, statusText: 'Critical error'});
+});
 module.exports = app;

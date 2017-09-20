@@ -9,15 +9,21 @@ module.exports = (request, response) => {
      * @interface ResponseObject
      * interface ResponseObject {
      *      success: boolean;
+     *      method: string;
      *      queryParams?: Map<string,string>
      *      body?: {}
      * }
      */
     let responseObject = {};
     
+    /** Request method */
+    responseObject.method = request.method;
+    
+    /** Query params in request */
     let query = request.query;
     let queryParams = new Map();
 
+    /** Request body */
     let body = request.body;
 
     /** 
@@ -45,8 +51,7 @@ module.exports = (request, response) => {
 
     /** Set response headers */
     response.set({
-        'Allow': 'GET, POST',
-        'Server': 'Test API'
+        'Allow': 'GET,POST,PUT,DELETE,PATCH'
     });
 
     /** Response */

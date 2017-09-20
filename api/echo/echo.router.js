@@ -7,6 +7,9 @@ const echoController = require('./echo.controller');
 
 router.route('/')
     .get(echoController)
-    .post(bodyParser.json(), echoController);
+    .post(bodyParser.json(), echoController)
+    .put(bodyParser.json(), echoController)
+    .patch(bodyParser.json(), echoController)
+    .delete(echoController);
 
 module.exports = router;
