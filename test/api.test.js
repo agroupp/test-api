@@ -5,6 +5,7 @@ const app = require('../app');
 describe('/api', function(){
     it('should respond with json and success true', (done) => {
         request(app).get('/api')
+        .expect('Access-Control-Allow-Origin', '*')
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
@@ -14,6 +15,15 @@ describe('/api', function(){
                 done({error: err, body: res.body })
             }
         });
+    });
+    it('should respond with cors headers on options request', (done) => {
+        request(app).options('/api')
+        .expect('Access-Control-Allow-Origin', '*')
+        .expect('Access-Control-Allow-Methods', /GET,POST,PUT,DELETE,PATCH/)
+        .expect('Access-Control-Allow-Headers', /content-type/i)
+        .expect('Access-Control-Max-Age', '3600')
+        .expect('Access-Control-Allow-Credentials', 'true')
+        .expect(200, done)
     });
 });
 
