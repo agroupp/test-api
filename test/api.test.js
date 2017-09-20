@@ -31,7 +31,7 @@ describe('/api/echo', function(){
     it('should respond to clear get with success true', (done) => {
         request(app).get('/api/echo')
         .expect('Content-Type', /json/)
-        .expect(200, { success: true }, done);
+        .expect(200, { success: true, method: 'GET' }, done);
     });
 
     it('should respond to get with query params with success true and queryParams object', (done) => {
