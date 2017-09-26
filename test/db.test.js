@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const db = require('../db/db.js');
-const MOCK_DATA = require('../db/MOCK_DATA.js');
+const MOCK_DATA = require('../db/USERS_MOCK_DATA.js');
 
 describe('InMemory database', function(){
     beforeEach(() => {
