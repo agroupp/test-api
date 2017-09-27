@@ -1,5 +1,5 @@
 'use strict';
-const requestsCounter = require('../../request-counter');
+const requestsCounter = require('../request-counter');
 
 /**
  * @module EchoController

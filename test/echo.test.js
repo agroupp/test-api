@@ -2,22 +2,15 @@
 const request = require('supertest');
 const app = require('../app');
 
-describe('/api', function(){
-    it('should respond with json and success true', (done) => {
-        request(app).get('/api')
-        .expect('Access-Control-Allow-Origin', '*')
+describe('/echo', function(){
+    it('should respond to clear get with success true', (done) => {
+        request(app).get('/echo')
         .expect('Content-Type', /json/)
-        .expect(200)
-        .end((err, res) => {
-            if (res.body.success) {
-                done();
-            } else {
-                done({error: err, body: res.body })
-            }
-        });
+        .expect(200, { success: true, method: 'GET' }, done);
     });
+
     it('should respond with cors headers on options request', (done) => {
-        request(app).options('/api')
+        request(app).options('/echo')
         .expect('Access-Control-Allow-Origin', '*')
         .expect('Access-Control-Allow-Methods', /GET,POST,PUT,DELETE,PATCH/)
         .expect('Access-Control-Allow-Headers', /content-type/i)
@@ -25,17 +18,9 @@ describe('/api', function(){
         .expect('Access-Control-Allow-Credentials', 'true')
         .expect(200, done)
     });
-});
-
-describe('/api/echo', function(){
-    it('should respond to clear get with success true', (done) => {
-        request(app).get('/api/echo')
-        .expect('Content-Type', /json/)
-        .expect(200, { success: true, method: 'GET' }, done);
-    });
 
     it('should respond to get with query params with success true and queryParams object', (done) => {
-        request(app).get('/api/echo?param1=value1&param2=value2&param3=value3')
+        request(app).get('/echo?param1=value1&param2=value2&param3=value3')
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
@@ -59,7 +44,7 @@ describe('/api/echo', function(){
     });
 
     it('should respond to post with success true and body object', (done) => {
-        request(app).post('/api/echo')
+        request(app).post('/echo')
         .set('Content-Type', 'application/json')
         .send({ "body1": "value1", "body2": "value2" })
         .expect(200)

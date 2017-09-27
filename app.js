@@ -7,25 +7,25 @@ const express = require('express');
 const app = express();
 const cors = require('./cors/cors');
 
-/**
- * The client’s IP address is understood as the left-most entry in the X-Forwarded-* header.
- */
+/** The client’s IP address is understood as the left-most entry in the X-Forwarded-* header. */
 app.set('trust proxy', true);
 
-/**
- * Disable the "X-Powered-By: Express" HTTP header.
- */
+/** Disable the "X-Powered-By: Express" HTTP header. */
 app.set('x-powered-by', false);
 
-/**
- * Activate Cors
- */
+/** Activate Cors */
 app.use(cors);
 
-const api = require('./api/api.router');
-
+/** Static web site */
 app.use('/', express.static('public'));
-app.use('/api', api);
+
+/** /echo route */
+const echoRoutes = require('./echo/echo.router');
+app.use('/echo', echoRoutes);
+
+/** /rest route */
+const restRoutes = require('./rest/rest.router');
+app.use('/rest', restRoutes);
 
 /**
  * Error Handler
