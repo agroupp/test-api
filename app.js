@@ -5,6 +5,7 @@
 
 const express = require('express');
 const app = express();
+const isInDev = (process.env.dev) ? true : false;
 const cors = require('./cors/cors');
 
 /** The client’s IP address is understood as the left-most entry in the X-Forwarded-* header. */
@@ -27,6 +28,12 @@ app.use('/echo', echoRoutes);
 const restRoutes = require('./rest/rest.router');
 app.use('/rest', restRoutes);
 
+/** Users Block Initialization */
+const usersCoolection = require('./db/db').users;
+const USERS_MOCK_DATA = require('./db/USERS_MOCK_DATA.js');
+usersCoolection.deleteAll();
+USERS_MOCK_DATA.forEach(d => usersCoolection.insert(d));
+
 /**
  * Error Handler
  */
@@ -34,6 +41,7 @@ app.use((req, res, next) => {
     res.status(404).json({ status: 404, statusText: 'Route not found'});
 });
 app.use((err, req, res, next) => {
+    if (isInDev) console.log(err);
     res.status(500).json({ status: 500, statusText: 'Critical error'});
 });
 module.exports = app;
