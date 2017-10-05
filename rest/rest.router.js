@@ -24,8 +24,8 @@ router.route('/')
     .delete(methodNotAllowed);
 
 /** Users Block */
-const usersController = require('./users.controller');
+const readUsersController = require('./read-users.controller');
 router.route('/users')
-    .get(usersController)
+    .get(readUsersController)
 
 module.exports = router;

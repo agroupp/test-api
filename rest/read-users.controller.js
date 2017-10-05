@@ -1,10 +1,9 @@
 'use strict';
 const requestsCounter = require('../request-counter');
-const usersCoolection = require('../db/db').users;
 const usersModel = require('../models/users.model');
 
 /**
- * @module UsersController
+ * @module ReadUsersController
  * @param {object} request Http request object
  * @param {object} response Http response object
  */

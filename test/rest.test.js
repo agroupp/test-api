@@ -74,5 +74,6 @@ describe('/rest/users', function() {
                 done(res.body.items.length);
             }
         });
-    });    
+    });
+    it('should insert user object to database and return new id');
 });
