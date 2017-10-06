@@ -25,7 +25,9 @@ router.route('/')
 
 /** Users Block */
 const readUsersController = require('./read-users.controller');
+const createUserController = require('./create-user.controller');
 router.route('/users')
     .get(readUsersController)
+    .post(bodyParser.json(), createUserController)
 
 module.exports = router;

@@ -57,14 +57,28 @@
                 Use <a href="./rest/users">/rest/users</a> route to work with users mock up.
             </p>
             <p>
-                Use GET method with no options to get all of 1000 records or use <code>page_index</code>
+                Use <code>GET</code> method with no options to get all of 1000 records or use <code>page_index</code>
                 and <code>page_size</code> query parameters to achieve pagination output.
             </p>
             <p>Example with pagination: 
-                <a href="http://test-api.tech/rest/users?page_index=12&page_size=30">
-                    http://test-api.tech/rest/users?page_index=12&page_size=30
+                <a href="https://test-api.tech/rest/users?page_index=12&page_size=30">
+                    https://test-api.tech/rest/users?page_index=12&page_size=30
                 </a>
             </p>
+            <br>
+            <p>
+                Use <code>POST</code> method to create new user on route /rest/users. Body must contain
+                json object implementing interface 
+                <pre><code>
+                    {
+                        firstName: string;
+                        lastName: string;
+                        email: srting;
+                        gender: 'Male' | 'Female'
+                    }
+                </code></pre>
+            </p>
+            <p>Result will object <code>{success: boolean; id: number; }</code> where "id" is id of new record</p>
         </article>
         <article class="api">
             <h2>SSL Support</h2>

@@ -28,11 +28,9 @@ app.use('/echo', echoRoutes);
 const restRoutes = require('./rest/rest.router');
 app.use('/rest', restRoutes);
 
-/** Users Block Initialization */
-const usersCoolection = require('./db/db').users;
-const USERS_MOCK_DATA = require('./db/USERS_MOCK_DATA.js');
-usersCoolection.deleteAll();
-USERS_MOCK_DATA.forEach(d => usersCoolection.insert(d));
+/** Users Block Initialization every 24 hours */
+require('./db/db-init')();
+setInterval(require('./db/db-init'), 1000*60*60*24);
 
 /**
  * Error Handler

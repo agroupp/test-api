@@ -2,8 +2,10 @@
 
 const expect = require('chai').expect;
 const usersModel = require('../models/users.model');
+const dbInit = require('../db/db-init');
 
 describe('Users Model Read', function(){
+    beforeEach(() => dbInit());
     it('should read all records', () => {
         let res = usersModel.read();
         expect(res.length).equal(1000);
@@ -28,4 +30,42 @@ describe('Users Model Read', function(){
             expect(res.items[res.items.length - 1].id).equal(1000);
         });
     })
+});
+
+describe('Users Model Create', function(){
+    beforeEach(() => dbInit());
+    it('should create new user and return its id', () => {
+        let res = usersModel.create({
+            "firstName": "James",
+            "lastName": "Willson",
+            "email": "willson@mail.ink",
+            "gender": "Male"
+        });
+        expect(res.success).to.be.true;
+        expect(res.id).equal(1001);
+    });
+    it('should not create more then one user with the same email', () => {
+        usersModel.create({
+            "firstName": "James",
+            "lastName": "Willson",
+            "email": "willson@mail.ink",
+            "gender": "Female"
+        });
+        
+        let res = usersModel.create({
+            "firstName": "James",
+            "lastName": "Willson",
+            "email": "willson@mail.ink",
+            "gender": "Male"
+        });
+        expect(res.success).to.be.false;
+    });
+    it('should not create user with not all fields filled', () => {
+        let res = usersModel.create({
+            "firstName": "James",
+            "lastName": "Willson",
+            "email": "willson@mail.ink"
+        });
+        expect(res.success).to.be.false;
+    });
 })

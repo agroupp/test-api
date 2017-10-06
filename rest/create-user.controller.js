@@ -8,5 +8,11 @@ const usersModel = require('../models/users.model');
  * @param {object} response Http response object
  */
 module.exports = (request, response) => {
-
+    let user = request.body;
+    requestsCounter.next();
+    response.set({
+        'Allow': 'GET,POST',
+        'X-Request-No': requestsCounter.counter()
+    });
+    response.json(usersModel.create(user));
 }

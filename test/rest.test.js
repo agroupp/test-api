@@ -1,8 +1,10 @@
 'use strict';
 const request = require('supertest');
 const app = require('../app');
+const dbInit = require('../db/db-init');
 
 describe('/rest', function(){
+    beforeEach(() => dbInit());
     it('should respond to clear get with success true', (done) => {
         request(app).get('/rest')
         .expect('Content-Type', /json/)
@@ -25,6 +27,7 @@ describe('/rest', function(){
 });
 
 describe('/rest/users', function() {
+    
     it('should return 1000 objects on request with no params', (done) => {
         request(app).get('/rest/users')
         .expect('Content-Type', /json/)
@@ -75,5 +78,24 @@ describe('/rest/users', function() {
             }
         });
     });
-    it('should insert user object to database and return new id');
+    it('should insert user object to database and return new id', (done) => {
+        request(app)
+        .post('/rest/users')
+        .send({
+            "firstName": "James",
+            "lastName": "Willson",
+            "email": "willson@mail.ink",
+            "gender": "Male"
+        })
+        .expect(200)
+        .end((err, res) => {
+            if (err) return done(err);
+            if (res.body.success){
+                done();
+            } else {
+                done(res.body.error);
+            }
+
+        })
+    });
 });
