@@ -102,3 +102,11 @@ code {
     justify-content: space-between;
     align-items: center;
 }
+.social{
+    display: flex;
+    align-items: center;
+}
+.social-button{
+    display: block;
+    margin: 0 10px;
+}
